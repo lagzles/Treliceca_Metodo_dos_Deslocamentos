@@ -4,7 +4,7 @@ import geometria_001 as geo
 import os
 import matplotlib.pyplot as plt
 import rigidez_001 as rig
-import calculo_gui_002 as calc_gui
+import calculo_gui_003 as calc_gui
 
 n_vaos = 0
 steeldeck_str = ''
@@ -323,9 +323,12 @@ class Interface:
                                                title='Please select a directory',
                                                filetypes = (("Arquivos dxf","*.dxf"),("Toudos","*.*")))
 
-        if (tempdir[-4:-1]+tempdir[-1]) != '.dxf':
-            tempdir += '.dxf'
-        geo.geometrizar(tempdir, n, lista_vaos, cumeeira, pe_direito, desenho_2d, trelica, n_porticos, vao_secundaria, vento)
+        if len(tempdir) <= 0:
+            print('Operação cancelada')
+        elif len(tempdir) and (tempdir[-4:-1]+tempdir[-1]) != '.dxf' > 0:
+            tempdir += '.dxf'            
+            geo.geometrizar(tempdir, n, lista_vaos, cumeeira, pe_direito, desenho_2d, trelica, n_porticos, vao_secundaria, vento)
+        
 
 
     def calcular_viga(self):

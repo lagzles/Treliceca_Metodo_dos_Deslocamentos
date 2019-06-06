@@ -1,6 +1,5 @@
-from tkinter import *  
-##from tkinter import messagebox, filedialog
-##import geometria_001 as geo
+from tkinter import *
+import tkinter as tk
 import matplotlib.pyplot as plt
 import rigidez_001 as rig
 
@@ -215,53 +214,39 @@ class Calculo:
                                 fill="black", width=1)
                 if tipo != '':                    
                     can.create_text((xi+xf)/2, (yi+yf)/2, font="Times 7",
-                                    text=c, fill="red")                
-                    if tipo != 'banzo':
-                        if int(b.ni.id) % 2 == 0:
-                            yyi = hi - (b.ni.y*1.03 - pe_direito)*mult
-                        elif int(b.ni.id) % 2 != 0:
-                            yyi = hi - (b.ni.y*.97 - pe_direito)*mult
-                            
-                        if int(b.nf.id) % 2 == 0:
-                            yyf = hi - (b.nf.y*1.03 - pe_direito)*mult
-                        elif int(b.nf.id) % 2 != 0:
-                            yyf = hi - (b.nf.y*.97 - pe_direito)*mult
-                            
-                        can.create_text(xi+0, yyi, font="Times 7",
-                                        text=int(b.ni.id), fill="blue")
-                        
-                        can.create_text(xf+0, yyf, font="Times 7",
-                                        text=int(b.nf.id), fill="blue")
-##                        can.create_text(xi+mult, yi, font="Times 7",
-##                                        text=int(b.ni.id), fill="blue")
-##                        can.create_text(xf+mult, yf, font="Times 6",
-##                                        text=int(b.nf.id), fill="blue")                            
-            
-                # desenhar apoios
-                if b.ni.fy == "x":# or b.nf.fy == "x":
-                    can.create_line([xi - mult*.5, yi + mult], [xi, yi],
-                                    fill="blue", width=1)
-                    can.create_line([xi + mult*.5, yi + mult], [xi, yi],
-                                    fill="blue", width=1)
-                    can.create_line([xi + mult*.5, yi + mult], [xi - mult*.5, yi + mult],
-                                    fill="blue", width=1)
-                elif b == barras_objetos[-2]:
-                    can.create_line([xf - mult*.5, yf + mult], [xf, yf],
-                                    fill="blue", width=1)
-                    can.create_line([xf + mult*.5, yf + mult], [xf, yf],
-                                    fill="blue", width=1)
-                    can.create_line([xf + mult*.5, yf + mult], [xf - mult*.5, yf + mult],
-                                    fill="blue", width=1)
+                                    text=c, fill="red")
+
+        for n in nos_objetos:
+            xi = 30 + n.x*mult
+            yi = hi - (n.y - pe_direito)*mult
+            yyi = hi - (n.y*1.03 - pe_direito)*mult
+
+            can.create_circle(xi, yi, 1.5, fill="blue")
+            can.create_text(xi+0, yyi, font="Times 7",
+                            text=int(n.id), fill="blue")
+
+            if n.fy == "x":
+                can.create_line([xi - mult*.5, yi + mult*.5], [xi, yi],
+                                fill="blue", width=1)
+                can.create_line([xi + mult*.5, yi + mult*.5], [xi, yi],
+                                fill="blue", width=1)
+                can.create_line([xi + mult*.5, yi + mult*.5], [xi - mult*.5, yi + mult*.5],
+                                fill="blue", width=1)
+
+            if n.fx != "x" and n.fy == "x":
+                can.create_line([xi + mult*.5, yi + mult*.9], [xi - mult*.5, yi + mult*.9],
+                                fill="blue", width=1)
 
 
     def add_barr(self, barra_id, barra):
         if barra != None:
-            new_bar = Label(self.bars_frame, text="{} {} - Nó(i) {} - Nó(f) {} - Tração: {:.2f}  - Compressão: {:.2f}".format(barra.id,
-                                                                                                                              barra.tipo,
-                                                                                                                              barra.ni.id,
-                                                                                                                              barra.nf.id,
-                                                                                                                              barra.tracao,
-                                                                                                                              barra.compressao), pady=10)
+            new_bar = Label(self.bars_frame,
+                            text="{} {} - Nó(i) {} - Nó(f) {} - Tração: {:.2f}  - Compressão: {:.2f}".format(barra.id,
+                                                                                                             barra.tipo,
+                                                                                                             barra.ni.id,
+                                                                                                             barra.nf.id,
+                                                                                                             barra.tracao,
+                                                                                                             barra.compressao), pady=10)
             ##
             
             new_canv = Canvas(self.bars_frame)
