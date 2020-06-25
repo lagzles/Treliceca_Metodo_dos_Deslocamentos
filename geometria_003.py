@@ -1,5 +1,5 @@
 import desenhar as des
-import trelica_009 as trel5
+import trelica_010 as trel5
 
 
 def geometrizar(file, n_vaos, lista_vaos, cumeeira, vao_secundaria, altura_viga, vento, vt, banzo_reto):
